@@ -3,55 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+    <title>{{ category.name }} - Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Ensures all cards have the same height */
-        .card {
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Makes all cards have the same height */
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-
-        .card-body {
-            flex-grow: 1; /* Ensures the body grows to take up remaining space */
-        }
-
-        .card img {
+        .product-card img {
+            width: 100%;
             height: 200px;
             object-fit: cover;
         }
-
-        /* Ensures that the Delete button is at the bottom */
-        .btn-danger {
-            margin-top: auto;
+        .product-card-body {
+            padding: 15px;
+            text-align: center;
         }
-
-        /* Responsive Design: Cards on small screens take full width */
-        @media (max-width: 768px) {
-            .col-md-4 {
-                flex: 0 0 100%; /* Takes full width on smaller screens */
-                max-width: 100%;
-            }
+        .product-card-body h5 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .product-card-body p {
+            margin-bottom: 15px;
+            color: #777;
+        }
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .offer-price {
+            font-size: 1rem;
+            color: red;
+            text-decoration: line-through;
         }
     </style>
 </head>
 <body>
-   <h1>
-    Products in {{category.name}}
-   </h1>
-   <div class="container">
-    {% for product in product_details %}
-    <div class="product-card">
-        <img src="{{ product.img.url }}" alt="">
-        <h3>{{ product.product_name }}</h3>
-        <p></p>
-
+    <div class="container my-5">
+        <h1 class="text-center mb-5">Products in "{{ category.name }}" Category</h1>
+        <div class="row">
+            {% for product in product_details %}
+                <div class="col-md-4 mb-4">
+                    <div class="product-card">
+                        <img src="{{ product.img.url }}" alt="{{ product.product_name }}">
+                        <div class="product-card-body">
+                            <h5>{{ product.product_name }}</h5>
+                            <p>{{ product.dis }}</p>
+                            <div class="price">
+                                <span class="offer-price">${{ product.price }}</span> ${{ product.offer_price }}
+                            </div>
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p>No products found in this category.</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
 
-   </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
