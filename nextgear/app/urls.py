@@ -7,4 +7,5 @@ urlpatterns=[
     path('shop_home',views.shop_home),
     path('product_categories/<id>',views.product_categories),
 
+
 ]

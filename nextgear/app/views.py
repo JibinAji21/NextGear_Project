@@ -50,4 +50,4 @@ def shop_home(req):
 def product_categories(req,id):
     category = Product_category.objects.get(id=id)
     product_details = Product.objects.filter(category=category)
-    return render(req, 'shop/car_list.html', {'category': category,'product_details':product_details})
+    return render(req, 'shop/productlist.html', {'category': category,'product_details':product_details})
